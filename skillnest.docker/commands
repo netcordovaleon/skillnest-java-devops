@@ -1,0 +1,20 @@
+#Descargar imagen
+docker pull mongodb/mongodb-community-server
+
+#Ejecutar contenedor con imagen (Ejecucion simple sin usuario/password)
+docker run -d -p 27017:27017 --name=mongo-test mongodb/mongodb-community-server:latest
+
+#Detener contenedor
+docker stop mongo-test
+
+#Comando para eliminar contenedor (XXX id del contenedor) - Recuerde que el contenedor debe estar detenido previamente
+docker rm XXXX 
+
+#Comando para eliminar imagen (XXX id de la imagen) - Recuerde que la imagen no debe estar asociada a ningun contenedor
+docker rmi XXXX 
+
+#Iniciar nuevamente contenedor detenido
+docker restart mongo-cibertec
+
+#Ejecutar un entorno de mongo con variables de authenticacion 
+docker run --rm --name mongo-test -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=123 -e MONGO_INITDB_DATABASE=test -v /tmp/mongo-data:/data/db mongodb/mongodb-community-server:latest
