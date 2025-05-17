@@ -1,0 +1,41 @@
+version: "3.1"
+services:
+  arka-product:
+    image: netcordovaleon/arka-products
+    container_name: arka-products-local
+    ports:
+    - 9876:9001
+    networks:
+      - arka-microservices
+  arka-catalog:
+    image: netcordovaleon/sgtbackend:71
+    container_name: arka-catalog-local
+    ports:
+    - 8521:9002
+    networks:
+      - arka-microservices
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server
+    container_name: sqlserver-products
+    ports:
+    - 1433:1433
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: SQL123456@_
+    networks:
+      - arka-microservices
+    volumes:
+      - ./database:/var/opt/mssql/data 
+  mongodb:
+    image: mongo
+    container_name: arka-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - 27017:27017
+    networks:
+      - arka-microservices
+networks:
+  arka-microservices:
+  

@@ -1,0 +1,18 @@
+###Registry publico: https://hub.docker.com
+###Descripcion: Ejemplo de como cargar imagenes a un registry publico "DockerHub"
+###Repositorio de imagen ejemplo https://hub.docker.com/repository/docker/netcordovaleon/arka-products/tags
+
+#construir imagen
+docker build -t java-test-01 .
+
+#correr imagen
+docker run -d -p 4321:9001 --name=java-clase-docker java-test-01
+
+#loguearte en docker hub
+docker login
+
+#crear tag de imagen
+docker image tag java-test-01 netcordovaleon/arka-products
+
+#subir imagen a dockerhub
+docker push my-username/my-image
