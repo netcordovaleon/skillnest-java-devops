@@ -3,8 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger: 
-- main
+trigger: none
 
 resources:
 - repo: self
@@ -24,10 +23,28 @@ stages:
       pool:
         vmImage: ubuntu-latest
       steps:
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'DockerLuisCordova'
+          repository: '$(repositoryDocker)'
+          command: 'build'
+          Dockerfile: '**/Dockerfile'
       - task: CmdLine@2
         inputs:
           script: |
             echo Write your commands here
             
             echo Hello world $(repositoryDocker)
-    
+#Stage de ejemplo solo para visualizar 2 etapas en nuestro pipeline
+  - stage: FinalDevOps
+    displayName: Stage final del ejemplo
+    jobs:
+    - job: FinalizarDevops
+      displayName: Finalizar DevOps
+      steps:
+      - task: CmdLine@2
+        inputs:
+          script: |
+            echo Write your commands here
+            
+            echo Fin del proceso de pipelines
