@@ -24,10 +24,18 @@ stages:
         vmImage: ubuntu-latest
       steps:
       - task: Docker@2
+        displayName: Docker Build
         inputs:
           containerRegistry: 'DockerLuisCordova'
           repository: '$(repositoryDocker)'
           command: 'build'
+          Dockerfile: '**/Dockerfile'
+      - task: Docker@2
+        displayName: Docker Push
+        inputs:
+          containerRegistry: 'DockerLuisCordova'
+          repository: '$(repositoryDocker)'
+          command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
       - task: CmdLine@2
         inputs:
