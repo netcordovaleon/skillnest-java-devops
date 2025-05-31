@@ -29,5 +29,5 @@ stages:
           script: |
             echo Write your commands here
             
-            echo Hello world
+            echo Hello world $(repositoryDocker)
     
